@@ -43,7 +43,7 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: ENABLE THIS
-#SENSORS = serial.Serial('/dev/ttyACM0', 9600);
+#SENSORS = serial.Serial('/dev/cu.usbmodem11231', 9600);
 
 def clear_screen():
     for i in range(0, TERM_HEIGHT):
@@ -154,6 +154,9 @@ def get_user_input():
         data[3][3] = not data[3][3];
     if c == ord("b"):
         data[4][3] = not data[4][3];
+    if c == ord("q"):
+        clear_screen();
+        quit();
 
 def get_sensors():
     #TODO: CHANGE THIS TO ACTUALLY READ THE SENSORS

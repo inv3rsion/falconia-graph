@@ -43,7 +43,7 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: ENABLE THIS
-#SENSORS = serial.Serial('/dev/ttyACM0', 115200);
+#SENSORS = serial.Serial('/dev/ttyACM0', 9600);
 
 def clear_screen():
     for i in range(0, TERM_HEIGHT):

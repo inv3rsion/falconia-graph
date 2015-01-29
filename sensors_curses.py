@@ -43,7 +43,7 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: ENABLE THIS
-#SENSORS = serial.Serial('/dev/cu.usbmodem11231', 9600);
+SENSORS = serial.Serial('/dev/tty.serial1', 38400);
 
 def clear_screen():
     for i in range(0, TERM_HEIGHT):
@@ -160,18 +160,18 @@ def get_user_input():
 
 def get_sensors():
     #TODO: CHANGE THIS TO ACTUALLY READ THE SENSORS
-    r = 0;
-    g = 0;
-    b = 0;
-    h = 0;
-    t = 0;
-    #returns r, g, b, humid, temp
-#    return r, g, b, humid, temp;
-    return random.randint(50, 100), \
-           random.randint(100, 150), \
-           random.randint(150, 255), \
-           random.randint(20, 50), \
-           random.randint(50, 100); 
+    r = -1;
+    g = -1;
+    b = -1;
+    h = -1;
+    t = -1;
+    datain = SENSORS.readlines().strip();
+    data = datain.split(",");
+    r = data[0];
+    g = data[1];
+    b = data[2];
+    return r, g, b, h, t;
+#    return random.randint(50, 100), random.randint(100, 150), random.randint(150, 255), random.randint(20, 50), random.randint(50, 100); 
 
 def is_humid(humid):
     return False;

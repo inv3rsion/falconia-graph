@@ -170,6 +170,9 @@ def get_user_input():
         data[3][3] = not data[3][3];
     if c == ord("b"):
         data[4][3] = not data[4][3];
+    if c == ord("f"):
+        SENSORS.flushInput();
+        SENSORS.flushOutput();
     if c == ord("q"):
         clear_screen();
         quit();

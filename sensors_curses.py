@@ -59,7 +59,7 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: CHANGE PORT TO CORRECT PORT!
-#SENSORS = serial.Serial('/dev/ttys002', 9600, timeout=0);
+#SENSORS = serial.Serial('/dev/ttys008', 9600, timeout=0);
 SENSORS = serial.Serial('/dev/ttyACM0', 9600, timeout=0);
 print("Made connection to serial port...");
 #time.sleep(6);

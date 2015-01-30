@@ -4,7 +4,8 @@ import serial;
 import time;
 import random;
 
-ser = serial.Serial('/dev/ttys003', 9600);
+#ser = serial.Serial('/dev/ttys003', 9600);
+ser = serial.Serial('/dev/ttyACM0', 9600);
 
 while True:
     ser.write("%s,%s," % (60+random.randint(-20, 20), 75+random.randint(-15, 15)));

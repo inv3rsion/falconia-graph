@@ -42,7 +42,8 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: CHANGE PORT TO CORRECT PORT!
-SENSORS = serial.Serial('/dev/ttys002', 9600, timeout=0);
+#SENSORS = serial.Serial('/dev/ttys002', 9600, timeout=0);
+SENSORS = serial.Serial('/dev/ttyACM0', 9600, timeout=0);
 print("Made connection to serial port...");
 #time.sleep(6);
 SENSORS.flushInput();
@@ -223,8 +224,8 @@ data = [[[], "h", "magenta", True], # humidity
         [[], "b", "cyan", False]];   # blue
 
 #TODO: CHANGE LOCATION
-#output = open("/home/ubuntu/mission_data.txt", "w");
-output = open("/Users/rainb0w/Desktop/mission_data.txt", "w");
+output = open("/home/ubuntu/mission_data.txt", "w");
+#output = open("/Users/rainb0w/Desktop/mission_data.txt", "w");
 
 while True:
     for i in range(23, TERM_HEIGHT):
@@ -260,8 +261,6 @@ while True:
 
     add_r_str("Running Time: %ss" % str(t+T_START), 28, 98);
 
-#    TODO: ENABLED THESE
-#    write to output: time, r, g, b, isyellow (0/1), h, t
     output.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (str(T_START+t), str(rdata), str(gdata), str(bdata), (1 if isye else 0), str(hdata), str(tdata)));
     output.flush();
 

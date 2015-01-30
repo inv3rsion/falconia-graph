@@ -136,7 +136,7 @@ def add_graph(data, x_axis):
             continue;
         for i, dval in enumerate(dvalues[0][-90:]):
             if not in_range(dval):
-                add_str("X", 21-int(round(limit(dval)/5)), 7+i, dvalues[2]);
+                add_str("*", 21-int(round(limit(dval)/5)), 7+i, dvalues[2]);
             else:
                 add_str(dvalues[1], 21-int(round(dval/5)), 7+i, dvalues[2]);
 

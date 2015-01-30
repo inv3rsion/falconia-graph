@@ -186,43 +186,43 @@ def get_sensors():
     datain = SENSORS.readline().strip();
     dhtd = datain.split(",");
     add_r_str("Raw data: " + datain, 25, 98);
-    if len(dhtd) == 9:
-        try:
-            dhtok = dhtd[0].upper() == "OK";
-            if dhtok:
-                h = int(float(dhtd[4]));
-                t = int(float(dhtd[5]));
-            else:
-                raise;
-        except:
-            add_r_str("DHT22 Sensor Error", 26, 98, "red");
+#    if len(dhtd) == 9:
+#        try:
+#            dhtok = dhtd[0].upper() == "OK";
+#            if dhtok:
+#                h = int(float(dhtd[4]));
+#                t = int(float(dhtd[5]));
+#            else:
+#                raise;
+#        except:
+#            add_r_str("DHT22 Sensor Error", 26, 98, "red");
+#
+#        try:
+#            data = datain.split(",");
+#            r = int(data[6]);
+#            g = int(data[7]);
+#            b = int(data[8]);
+##        except:
+#            add_r_str("Color Sensor Error", 27, 98, "red");
+#
+#    else:
+    try:
+        dhtok = dhtd[0].upper() == "OK";
+        if dhtok:
+            h = int(float(dhtd[1]));
+            t = int(float(dhtd[2]));
+        else:
+            raise;
+    except:
+        add_r_str("DHT22 Sensor Error", 26, 98, "red");
 
-        try:
-            data = datain.split(",");
-            r = int(data[6]);
-            g = int(data[7]);
-            b = int(data[8]);
-        except:
-            add_r_str("Color Sensor Error", 27, 98, "red");
-
-    else:
-        try:
-            dhtok = dhtd[0].upper() == "OK";
-            if dhtok:
-                h = int(float(dhtd[1]));
-                t = int(float(dhtd[2]));
-            else:
-                raise;
-        except:
-            add_r_str("DHT22 Sensor Error", 26, 98, "red");
-
-        try:
-            data = datain.split(",");
-            r = int(data[3]);
-            g = int(data[4]);
-            b = int(data[5]);
-        except:
-            add_r_str("Color Sensor Error", 27, 98, "red");
+    try:
+        data = datain.split(",");
+        r = int(data[3]);
+        g = int(data[4]);
+        b = int(data[5]);
+    except:
+        add_r_str("Color Sensor Error", 27, 98, "red");
 
     return r, g, b, h, t;
 
@@ -304,5 +304,5 @@ while True:
 
     get_user_input();
     draw();
-    time.sleep(2);
-    t += 2;
+    time.sleep(1.2);
+    t += 1.2;

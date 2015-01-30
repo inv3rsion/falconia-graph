@@ -200,7 +200,7 @@ def get_sensors():
             g = int(data[7]);
             b = int(data[8]);
         except:
-            add_r_str("Color Sensor Error", 27, 98, "red");) == 9:
+            add_r_str("Color Sensor Error", 27, 98, "red"):
 
     else:
         try:

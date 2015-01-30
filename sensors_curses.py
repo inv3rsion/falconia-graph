@@ -235,7 +235,7 @@ data = [[[], "h", "magenta", True], # humidity
         [[], "b", "cyan", False]];   # blue
 
 #TODO: CHANGE LOCATION
-output = open("/home/ubuntu/mission_data.txt", "w");
+output = open("/home/ubuntu/falconia/mission_data.txt", "w");
 #output = open("/Users/rainb0w/Desktop/mission_data.txt", "w");
 
 while True:

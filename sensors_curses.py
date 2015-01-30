@@ -18,12 +18,12 @@ GRAPH_ULIMIT = 100;
 GRAPH_LLIMIT = 0;
 
 # colors
-RU = 190;
-RL = 30;
-GU = 90;
-GL = 20;
-BU = 90;
-BL = 20;
+RL = 120;
+RU = 140;
+GL = 40;
+GU = 80;
+BL = 40;
+BU = 80;
 
 # humidity
 HU = 110;

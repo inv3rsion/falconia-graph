@@ -184,16 +184,20 @@ def get_sensors():
     add_r_str("Raw data: " + datain, 25, 98);
     try:
         dhtd = datain.split(",");
-        h = int(float(dhtd[0]));
-        t = int(float(dhtd[1]));
+        dhtok = dhtd[0].upper() == "OK";
+        if dhtok:
+            h = int(float(dhtd[1]));
+            t = int(float(dhtd[2]));
+        else:
+            raise;
     except:
         add_r_str("DHT22 Sensor Error", 26, 98, "red");
 
     try:
         data = datain.split(",");
-        r = int(data[2]);
-        g = int(data[3]);
-        b = int(data[4]);
+        r = int(data[3]);
+        g = int(data[4]);
+        b = int(data[5]);
     except:
         add_r_str("Color Sensor Error", 27, 98, "red");
 

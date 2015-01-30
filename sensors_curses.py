@@ -181,8 +181,8 @@ def get_sensors():
     h = -1;
     t = -1;
     datain = SENSORS.readline().strip();
-    dhtin = datain.split(",");
-    add_r_str("Raw data: " + str(len(dhtin)), 25, 98);
+    dhtd = datain.split(",");
+    add_r_str("Raw data: " + datain, 25, 98);
     if len(dhtin) == 9:
         try:
             dhtok = dhtd[0].upper() == "OK";

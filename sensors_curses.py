@@ -16,6 +16,23 @@ TERM_HEIGHT = 29;
 SCREEN = [[" " for j in range(0, TERM_LENGTH)] for i in range(0, TERM_HEIGHT)];
 GRAPH_ULIMIT = 100;
 GRAPH_LLIMIT = 0;
+
+# colors
+RU = 190;
+RL = 30;
+GU = 90;
+GL = 20;
+BU = 90;
+BL = 20;
+
+# humidity
+HU = 110;
+HL = 70;
+
+# temperature
+TU = 100;
+TL = 40;
+
 stdscr = curses.initscr();
 stdscr.nodelay(1);
 curses.start_color();
@@ -183,18 +200,12 @@ def get_sensors():
     return r, g, b, h, t;
 
 def is_humid(humid):
-    return False;
+    return HL <= humid <= HU;
 
 def is_hot(temp):
-    return False;
+    return TL <= temp <= TU;
 
 def is_yellow(red, green, blue):
-    RU = 190;
-    RL = 30;
-    GU = 90;
-    GL = 20;
-    BU = 90;
-    BL = 20;
     return (RL <= red <= RU) and \
            (GL <= green <= GU) and \
            (BL <= blue <= BU);

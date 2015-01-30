@@ -10,7 +10,6 @@ import time;
 import random;
 import serial;
 import curses;
-import threading;
 
 TERM_LENGTH = 100;
 TERM_HEIGHT = 29;
@@ -42,8 +41,12 @@ COLORS = {"red"    :  curses.color_pair(1),
           "dim"    :  curses.A_DIM
          }
 
-#TODO: ENABLE THIS
-SENSORS = serial.Serial('/dev/tty.serial1', 38400);
+#TODO: CHANGE PORT TO CORRECT PORT!
+SENSORS = serial.Serial('/dev/ttys002', 9600, timeout=0);
+print("Made connection to serial port...");
+#time.sleep(6);
+SENSORS.flushInput();
+SENSORS.flushOutput();
 
 def clear_screen():
     for i in range(0, TERM_HEIGHT):
@@ -99,16 +102,11 @@ def draw():
         for cnum, c in enumerate(line):
             if isinstance(c, tuple):
                 if c[1] != "white":
-#                    print(colored(c[0], c[1]), end="");
-#                    stdscr.insstr(lnum, cnum, c[0], get_curses_color(c[1]));
                     stdscr.insstr(lnum, cnum, c[0], COLORS[c[1]]);
                 else:
-#                    print(c[0], end="");
                     stdscr.insstr(lnum, cnum, c[0]);
             else:
-#                print(c, end="");
                 stdscr.insstr(lnum, cnum, c);
-#        print();
     stdscr.refresh();
 
 def limit(val):
@@ -123,7 +121,7 @@ def add_graph(data, x_axis):
     clear_row(22);
     # start at 7
     for i, t in enumerate(x_axis):
-        if t % 5 == 0:
+        if t % 10 == 0:
             t = str(t%100);
             add_str(t, 22, 7+i, "underl" if t == "0" else "white");
             add_str("+", 21, 7+i);
@@ -159,19 +157,29 @@ def get_user_input():
         quit();
 
 def get_sensors():
-    #TODO: CHANGE THIS TO ACTUALLY READ THE SENSORS
     r = -1;
     g = -1;
     b = -1;
     h = -1;
     t = -1;
-    datain = SENSORS.readlines().strip();
-    data = datain.split(",");
-    r = data[0];
-    g = data[1];
-    b = data[2];
+    datain = SENSORS.readline().strip();
+    add_r_str("Raw data: " + datain, 25, 98);
+    try:
+        dhtd = datain.split(",");
+        h = int(float(dhtd[0]));
+        t = int(float(dhtd[1]));
+    except:
+        add_r_str("DHT22 Sensor Error", 26, 98, "red");
+
+    try:
+        data = datain.split(",");
+        r = int(data[2]);
+        g = int(data[3]);
+        b = int(data[4]);
+    except:
+        add_r_str("Color Sensor Error", 27, 98, "red");
+
     return r, g, b, h, t;
-#    return random.randint(50, 100), random.randint(100, 150), random.randint(150, 255), random.randint(20, 50), random.randint(50, 100); 
 
 def is_humid(humid):
     return False;
@@ -214,10 +222,13 @@ data = [[[], "h", "magenta", True], # humidity
         [[], "g", "green", False],   # green
         [[], "b", "cyan", False]];   # blue
 
-#TODO: ENABLE THIS
-#output = open("/home/ubuntu/Desktop/mission_data.txt", "w");
+#TODO: CHANGE LOCATION
+#output = open("/home/ubuntu/mission_data.txt", "w");
+output = open("/Users/rainb0w/Desktop/mission_data.txt", "w");
 
 while True:
+    for i in range(23, TERM_HEIGHT):
+        clear_row(i);
     # get sensor data from /dev/ttyACM0, try to parse and read
     rdata, gdata, bdata, hdata, tdata = get_sensors();
     data[0][0].append(hdata);
@@ -230,9 +241,6 @@ while True:
 
     add_graph(data, x_axis[-90:]);
     add_r_str(str((t+T_START)/100), 22, 3);
-
-    for i in range(23, TERM_HEIGHT):
-        clear_row(i);
 
     add_str("Current Readings:", 23, 0);
     add_str("(R)ed:         " + str(rdata), 24, 5, "red", 13);
@@ -254,10 +262,10 @@ while True:
 
 #    TODO: ENABLED THESE
 #    write to output: time, r, g, b, isyellow (0/1), h, t
-#    output.write("%d\t%s\t%s\t%s\t%s\t%s\t%d\n" % (str(T_START+t), str(rdata), str(gdata), str(bdata), (1 if isye else 0), str(hdata), str(tdata)));
-#    output.flush();
+    output.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (str(T_START+t), str(rdata), str(gdata), str(bdata), (1 if isye else 0), str(hdata), str(tdata)));
+    output.flush();
 
     get_user_input();
     draw();
-    time.sleep(1);
-    t += 1;
+    time.sleep(2);
+    t += 2;

@@ -182,24 +182,44 @@ def get_sensors():
     t = -1;
     datain = SENSORS.readline().strip();
     add_r_str("Raw data: " + datain, 25, 98);
-    try:
-        dhtd = datain.split(",");
-        dhtok = dhtd[0].upper() == "OK";
-        if dhtok:
-            h = int(float(dhtd[1]));
-            t = int(float(dhtd[2]));
-        else:
-            raise;
-    except:
-        add_r_str("DHT22 Sensor Error", 26, 98, "red");
+    dhtin = datain.split(",");
+    if len(dhtin) == 9:
+        try:
+            dhtok = dhtd[0].upper() == "OK";
+            if dhtok:
+                h = int(float(dhtd[4]));
+                t = int(float(dhtd[5]));
+            else:
+                raise;
+        except:
+            add_r_str("DHT22 Sensor Error", 26, 98, "red");
 
-    try:
-        data = datain.split(",");
-        r = int(data[3]);
-        g = int(data[4]);
-        b = int(data[5]);
-    except:
-        add_r_str("Color Sensor Error", 27, 98, "red");
+        try:
+            data = datain.split(",");
+            r = int(data[6]);
+            g = int(data[7]);
+            b = int(data[8]);
+        except:
+            add_r_str("Color Sensor Error", 27, 98, "red");) == 9:
+
+    else:
+        try:
+            dhtok = dhtd[0].upper() == "OK";
+            if dhtok:
+                h = int(float(dhtd[1]));
+                t = int(float(dhtd[2]));
+            else:
+                raise;
+        except:
+            add_r_str("DHT22 Sensor Error", 26, 98, "red");
+
+        try:
+            data = datain.split(",");
+            r = int(data[3]);
+            g = int(data[4]);
+            b = int(data[5]);
+        except:
+            add_r_str("Color Sensor Error", 27, 98, "red");
 
     return r, g, b, h, t;
 

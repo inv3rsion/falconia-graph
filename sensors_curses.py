@@ -59,8 +59,8 @@ COLORS = {"red"    :  curses.color_pair(1),
          }
 
 #TODO: CHANGE PORT TO CORRECT PORT!
-#SENSORS = serial.Serial('/dev/ttys008', 9600, timeout=0);
-SENSORS = serial.Serial('/dev/ttyACM0', 9600, timeout=0);
+SENSORS = serial.Serial('/dev/ttys000', 9600, timeout=0);
+#SENSORS = serial.Serial('/dev/ttyACM0', 9600, timeout=0);
 print("Made connection to serial port...");
 SENSORS.flushInput();
 SENSORS.flushOutput();
@@ -278,7 +278,9 @@ while True:
 
     add_r_str("Running Time: %ss" % str(t+T_START), 28, 98);
 
-    output.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (str(T_START+t), str(rdata), str(gdata), str(bdata), (1 if isye else 0), str(hdata), str(tdata)));
+    output.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % \
+            (str(T_START+t), str(rdata), str(gdata), str(bdata),\
+            (1 if isye else 0), str(hdata), str(tdata)));
     output.flush();
 
     get_user_input();
